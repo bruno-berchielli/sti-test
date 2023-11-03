@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_03_143728) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_03_145430) do
+  create_table "dog_stuffs", force: :cascade do |t|
+    t.integer "dog_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dog_id"], name: "index_dog_stuffs_on_dog_id"
+  end
+
   create_table "motor_alert_locks", force: :cascade do |t|
     t.integer "alert_id", null: false
     t.string "lock_timestamp", null: false
@@ -219,6 +226,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_03_143728) do
     t.index ["pet_owner_id"], name: "index_pets_on_pet_owner_id"
   end
 
+  add_foreign_key "dog_stuffs", "dogs"
   add_foreign_key "motor_alert_locks", "motor_alerts", column: "alert_id"
   add_foreign_key "motor_alerts", "motor_queries", column: "query_id"
   add_foreign_key "motor_note_tag_tags", "motor_note_tags", column: "tag_id"
