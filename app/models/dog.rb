@@ -1,0 +1,3 @@
+class Dog < Pet
+
+end

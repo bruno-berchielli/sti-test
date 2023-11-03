@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_03_143621) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_03_143728) do
   create_table "motor_alert_locks", force: :cascade do |t|
     t.integer "alert_id", null: false
     t.string "lock_timestamp", null: false
@@ -204,9 +204,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_03_143621) do
     t.index ["name"], name: "motor_tags_name_unique_index", unique: true
   end
 
+  create_table "pet_owners", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pets", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.integer "pet_owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_owner_id"], name: "index_pets_on_pet_owner_id"
+  end
+
   add_foreign_key "motor_alert_locks", "motor_alerts", column: "alert_id"
   add_foreign_key "motor_alerts", "motor_queries", column: "query_id"
   add_foreign_key "motor_note_tag_tags", "motor_note_tags", column: "tag_id"
   add_foreign_key "motor_note_tag_tags", "motor_notes", column: "note_id"
   add_foreign_key "motor_taggable_tags", "motor_tags", column: "tag_id"
+  add_foreign_key "pets", "pet_owners"
 end
